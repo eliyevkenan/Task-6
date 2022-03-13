@@ -1,0 +1,135 @@
+1-ci Program.cs hissesi.
+using System;
+
+namespace ConsoleApp28
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string lengthStr;
+            int length;
+            do
+            {
+                Console.WriteLine("Kitab sayini daxil edin:");
+                lengthStr = Console.ReadLine();
+                length = Convert.ToInt32(lengthStr);
+
+            } while (length < 0);
+
+            Book_class[] book_Classes = new Book_class[length];
+            
+            for (int i = 0; i < length; i++)
+            {
+                int count = GetinputInt($"{i + 1}. Kitabin sayi:", 0, int.MinValue);
+                
+                int no = GetinputInt($"{i + 1}. Kitabin nomresi:", 0, int.MinValue);
+
+                string name = GetInputStr($"{i + 1}. Kitabin adi:", 0, 1000);
+
+                string genre = GetInputStr($"{i + 1}. Kitabin janri:", 0, 1000);
+
+                double price = GetinputDouble($"{i + 1}. Kitabin qiymeti:", 0, double.MaxValue);
+
+                book_Classes[i] = new Book_class(count,name,no,genre,price)
+                {
+                    
+                   Count = count,
+                };
+
+                
+                Console.WriteLine("Book_class");
+                for (int i = 0; i < book_Classes.Length; i++)
+                {
+                    Console.WriteLine("--------------------------");
+                    Console.WriteLine($"{i + 1}.ci kitab: ");
+                    Console.WriteLine(book_Classes[i].GetInfo());
+
+                }
+
+            }
+            static string GetInputStr(string name, int min, int max)
+            {
+                string input;
+                do
+                {
+                    Console.WriteLine(name);
+                    input = Console.ReadLine();
+                } while (input.Length < min || input.Length > max);
+                return input;
+            }
+            static int GetinputInt(string name, int min, int max)
+            {
+                int input;
+                string inputStr;
+
+                do
+                {
+                    Console.WriteLine(name);
+                    inputStr = Console.ReadLine();
+                    input = Convert.ToInt32(inputStr);
+
+                } while (input < min || input > max);
+
+                return input;
+
+            }
+            static double GetinputDouble(string name, double min, double max)
+            {
+                double input;
+                string inputStr;
+
+                do
+                {
+                    Console.WriteLine(name);
+                    inputStr = Console.ReadLine();
+                    input = Convert.ToDouble(inputStr);
+
+                } while (input < min || input > max);
+
+                return input;
+
+            }
+
+
+        }   }
+}
+
+
+2-Book-clases hissesi.
+cinamespace ConsoleApp28
+{
+    internal class Book_class:Product
+    {
+        public Book_class(double price,string name,int No,string genre) : base(price,name,No)
+        {
+            this.Genre = genre;
+            this.Price = price;
+        }
+        
+        public string Genre;
+        public string GetInfo()
+        {
+            return $"No: {this.No} - Name: {this.Name} - Price: {this.Price} \n Count: {this.Count} - Genre: {this.Genre}";
+        }
+    }
+}
+
+
+3-Product hissesi.
+namespace ConsoleApp28
+{
+    internal class Product
+    {
+        public Product(double price,string name,int No)
+        {
+            this.Price = price;
+            this.Name = name;   
+            this.No = No;   
+        }
+        public string Name;
+        public int No;
+        public double Price;
+        public int Count;
+    }
+}
